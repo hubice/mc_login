@@ -54,7 +54,7 @@ class Index
             $data['username'] = $username;
             $data['password'] = $password;
             $data['clientToken'] = $clientToken;
-            $data['accessToken'] = self::unformatJavaUuid(self::constructOfflinePlayerUuid($username + time()));
+            $data['accessToken'] = self::unformatJavaUuid(self::constructOfflinePlayerUuid(''.time().$username));
             $data['accessTokenTime'] = time() + 10 * 24 * 60 * 60;
             $id = UserModel::addOne($data);
             if (!$id) {
