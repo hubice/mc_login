@@ -38,7 +38,6 @@ class Index
         if (!$clientToken) {
             $clientToken = self::unformatJavaUuid(self::constructOfflinePlayerUuid($username));
         }
-
         $userInfo = UserModel::getbyU($username);
         $map = [
             'availableProfiles' => [],
@@ -46,7 +45,7 @@ class Index
             'user' => [],
         ];
         $map['clientToken'] = $clientToken;
-        if ($userInfo) {
+        if (false) {
             // 存在用户
 
         } else {
