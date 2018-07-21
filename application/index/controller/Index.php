@@ -12,7 +12,7 @@ class Index
                 "implementationVersion" => "1.0.0"
             ),
             "skinDomains" => array(
-                ".blog.com"
+                ".pan233.com"
             )
         ));
     }
