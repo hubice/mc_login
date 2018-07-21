@@ -27,6 +27,9 @@ class Index
      * 登陆获取token
      */
     public function authenticate() {
+        
+        return self::errJson();
+
         $username = input('username','','trim');
         $password = input('password','','trim');
         $clientToken = input('clientToken','','trim');
@@ -46,9 +49,6 @@ class Index
         ];
         $map['clientToken'] = $clientToken;
         if (false) {
-            // 存在用户
-            // 1820120473@qq.com
-            // woailuo115
         } else {
             $data = [];
             $data['username'] = $username;
