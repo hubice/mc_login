@@ -67,18 +67,15 @@ Class UserServer {
 
     public static function cratePrifiles($data,$uuid) {
         $textures = array(
-            'timestamp' => time(),
+            'timestamp' => time()*1000,
             'profileId' => $uuid,
             'profileName' => $data['name'],
             'textures' => [
                 "SKIN" => [
-                    "url" => "https://mc.pan233.com/textures/skin/e490673ccdf61b95.png",
-                    "metadata" => [
-                        'model' => 'default'
-                    ]
+                    "url" => "https://mc.pan233.com/textures/skin/e490673ccdf61b95.png"
                 ],
                 "CAPE" => [
-                    "url" => "https://mc.pan233.com/textures/cwwwape/72ee2cfcefbfc081.png",
+                    "url" => "https://mc.pan233.com/textures/cape/72ee2cfcefbfc081.png",
                 ]
             ]
         );
