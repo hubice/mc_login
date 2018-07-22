@@ -65,10 +65,33 @@ Class UserServer {
         return $userPro;
     }
 
-    public static function cratePrifiles($data) {
+    public static function cratePrifiles($data,$uuid) {
+        $textures = array(
+            'timestamp' => time(),
+            'profileId' => $uuid,
+            'profileName' => $data['name'],
+            'textures' => [
+                "SKIN" => [
+                    "url" => "https://texture.namemc.com/e4/90/e490673ccdf61b95.png",
+                    "metadata" => [
+                        'model' => 'default'
+                    ]
+                ],
+                "CAPE" => [
+                    "url" => "https://texture.namemc.com/72/ee/72ee2cfcefbfc081.png",
+                ]
+            ]
+        );
+
+
         $data['create_time'] = $data['update_time'] = time();
         $data['status'] = 1;
-        $data['properties'] = json_encode(array());
+        $data['properties'] = json_encode([
+            [
+                'name' => 'textures',
+                'value' => base64_encode($textures)
+            ]
+        ]);
         $res = UserModel::addOne($data);
         if (empty($res)) {
             self::$err = "添加失败";

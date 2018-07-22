@@ -66,9 +66,10 @@ Class Authserver extends Controller {
             // 创建默认角色
             $map = [];
             $map['uid'] = $userInfo['id'];
-            $map['uuid'] = (string)UUIDServer::generate(5, $data['username'],UUIDServer::NS_DNS);
+            $_uuid = UUIDServer::generate(5, $data['username'],UUIDServer::NS_DNS);
+            $map['uuid'] = (string)_uuid;
             $map['name'] = explode('@',$data['username'])[0];
-            $profiles = UserServer::cratePrifiles($map);
+            $profiles = UserServer::cratePrifiles($map,$_uuid->clearDashes());
             if (false === $profiles) {
                 return iceErrorJson(UserServer::$err);
             }
