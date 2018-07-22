@@ -16,11 +16,10 @@ Class Authserver extends Controller {
      * 用户登陆认证接口
      */
     public function authenticate() {
-        iceLog('---用户登陆认证接口---');
+        Log::record("---用户登陆认证接口---",'error');
         $data = input('param.');
-        trace($data);
+        Log::record(var_export($data),'error');
         return iceErrorJson();
-
     }
 
 
