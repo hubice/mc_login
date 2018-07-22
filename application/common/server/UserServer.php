@@ -82,16 +82,15 @@ Class UserServer {
                 ]
             ]
         );
-
-
         $data['create_time'] = $data['update_time'] = time();
         $data['status'] = 1;
         $data['properties'] = json_encode([
             [
                 'name' => 'textures',
-                'value' => base64_encode($textures)
+                'value' => base64_encode(json_encode($textures))
             ]
         ]);
+        var_dump($data);
         $res = UserModel::addOne($data);
         if (empty($res)) {
             self::$err = "添加失败";

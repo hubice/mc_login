@@ -20,14 +20,14 @@ Class Authserver extends Controller {
         iceLog("---用户登陆认证接口---");
         $data = input('param.');
         iceLog($data);
-//        $data['agent'] =   array (
-//            'name' => 'Minecraft',
-//            'version' => 1,
-//        );
-//        $data['password'] = '123456';
-//        $data['clientToken'] = '83106648ff824745ac361f68ce36d13b';
-//        $data['requestUser'] = true;
-//        $data['username'] = 'demo@ice.com';
+        $data['agent'] =   array (
+            'name' => 'Minecraft',
+            'version' => 1,
+        );
+        $data['password'] = '123456';
+        $data['clientToken'] = '8310664228ff824745a61f68ce36d13b';
+        $data['requestUser'] = true;
+        $data['username'] = 'demo123@ice.com';
 
         if (empty($data['username']) || empty($data['password'])
             || empty($data['agent']))
@@ -67,7 +67,7 @@ Class Authserver extends Controller {
             $map = [];
             $map['uid'] = $userInfo['id'];
             $_uuid = UUIDServer::generate(5, $data['username'],UUIDServer::NS_DNS);
-            $map['uuid'] = (string)_uuid;
+            $map['uuid'] = (string)$_uuid;
             $map['name'] = explode('@',$data['username'])[0];
             $profiles = UserServer::cratePrifiles($map,$_uuid->clearDashes());
             if (false === $profiles) {
