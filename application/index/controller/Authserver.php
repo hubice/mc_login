@@ -19,14 +19,14 @@ Class Authserver extends Controller {
     public function authenticate() {
         iceLog("---用户登陆认证接口---");
         $data = input('param.');
-        $data['agent'] =   array (
-            'name' => 'Minecraft',
-            'version' => 1,
-        );
-        $data['password'] = '123456';
-        $data['clientToken'] = '83106648ff824745ac361f68ce36d13b';
-        $data['requestUser'] = true;
-        $data['username'] = 'demo@ice.com';
+//        $data['agent'] =   array (
+//            'name' => 'Minecraft',
+//            'version' => 1,
+//        );
+//        $data['password'] = '123456';
+//        $data['clientToken'] = '83106648ff824745ac361f68ce36d13b';
+//        $data['requestUser'] = true;
+//        $data['username'] = 'demo@ice.com';
 
         iceLog($data);
         if (empty($data['username']) || empty($data['password'])
