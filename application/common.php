@@ -16,3 +16,7 @@ function iceErrorJson ($msg = "服务器错误") {
         'errorMessage' => $msg,
     ),416);
 }
+
+function iceLog($msg) {
+    return trace($msg,'error');
+}
