@@ -72,13 +72,13 @@ Class UserServer {
             'profileName' => $data['name'],
             'textures' => [
                 "SKIN" => [
-                    "url" => "http://www.pan233.com/texture/skin/e490673ccdf61b95.png",
+                    "url" => "https://mc.pan233.com/textures/skin/e490673ccdf61b95.png",
                     "metadata" => [
                         'model' => 'default'
                     ]
                 ],
                 "CAPE" => [
-                    "url" => "http://www.pan233.com/texture/cape/72ee2cfcefbfc081.png",
+                    "url" => "https://mc.pan233.com/textures/cwwwape/72ee2cfcefbfc081.png",
                 ]
             ]
         );
