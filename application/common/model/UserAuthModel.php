@@ -19,4 +19,7 @@ class UserAuthModel extends Model {
         });
     }
 
+    public static function addOne($data) {
+        return self::create($data);
+    }
 }

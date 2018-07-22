@@ -18,37 +18,50 @@ Class Authserver extends Controller {
      */
     public function authenticate() {
         iceLog("---用户登陆认证接口---");
-
         $data = input('param.');
-
         iceLog($data);
         if (empty($data['username']) || empty($data['password'])
             || empty($data['agent']))
         {
             return iceErrorJson();
         }
-
         $data['clientToken'] = $data['clientToken'] ? $data['clientToken'] : UUIDServer::generate()->clearDashes();
         $accessToken = UUIDServer::generate()->clearDashes();
 
-        iceLog($data);
-        iceLog($accessToken);
         $userInfo = UserServer::checkUser(trim($data['username']),trim($data['password']));
-        iceLog($userInfo);
-
         if (is_numeric($userInfo) && $userInfo == -2) {
             return iceErrorJson(UserServer::$err);
+        }
+        if (is_numeric($userInfo) && $userInfo == -1) {
+            // 创建用户
+            $map = [];
+            $map['username'] = $data['username'];
+            $map['client_token'] = $data['clientToken'];
+            $map['password'] = $data['password'];
+            $map['access_token'] = $accessToken;
+            $userInfo = UserServer::crateUser($map);
+            if (false === $userInfo) {
+                return iceErrorJson(UserServer::$err);
+            }
         }
 
         $profiles = UserServer::getAvailableProfiles(1);
         if (false == $profiles) {
-            $profiles = array(
-
-            );
+            // 创建默认角色
+            $map = [];
+            $profiles = UserServer::cratePrifiles($map);
+            if (false === $profiles) {
+                return iceErrorJson(UserServer::$err);
+            }
         }
-        iceLog($profiles);
 
-        return iceErrorJson();
+        $res = [];
+        $res['accessToken'] = $userInfo['access_token'];
+        $res['clientToken'] = $userInfo['client_token'];
+        $res['availableProfiles'] = null;
+        $res['selectedProfile'] = null;
+        $res['user'] = null;
+        return json($res);
     }
 
 

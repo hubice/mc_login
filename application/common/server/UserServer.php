@@ -27,6 +27,20 @@ Class UserServer {
         return $userInfo;
     }
 
+    public static function crateUser($data) {
+        $data['create_time'] = $data['update_time'] = time();
+        $data['access_token_time'] = time() + 10 * 3600 * 24;
+        $data['status'] = 1;
+        $data['properties'] = json_encode(array('preferredLanguage' => 'zh_CN'));
+        $res = UserAuthModel::addOne($data);
+        if (empty($res)) {
+            self::$err = "添加失败";
+            return false;
+        }
+        return $res;
+    }
+
+
     public static function getAvailableProfiles($userId)
     {
         $userPro = UserModel::getId($userId);
@@ -37,4 +51,7 @@ Class UserServer {
         return $userPro;
     }
 
+    public static function cratePrifiles($data) {
+        return 123;
+    }
 }
