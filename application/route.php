@@ -10,9 +10,11 @@
 // +----------------------------------------------------------------------
 
 return [
-    '__pattern__' => [
-        'name' => '\w+',
+    "[api/yggdrasil/authserver]" => [
+        "authenticate" => ["Authserver/authenticate"],
+        "refresh" => ["Authserver/refresh"],
+        "validate" => ["Authserver/validate"],
+        "invalidate" => ["Authserver/invalidate"],
+        "signout" => ["Authserver/signout"],
     ],
-    '/authserver/authenticate'     => 'index/index/authenticate'
-
 ];
