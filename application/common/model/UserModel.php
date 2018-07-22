@@ -11,15 +11,9 @@ use think\Model;
 
 class UserModel extends Model {
 
-    protected $table = 'mc_user_auth';
+    protected $table = 'mc_user';
 
-    public static function getbyU($username) {
-        return self::get(function ($query) use ($username) {
-            $query->where('username',$username);
-        });
-    }
-
-    public static function addOne($data) {
-        return self::create($data);
+    public static function getId($id) {
+        return self::where("uid",$id)->order("sort desc")->get();
     }
 }

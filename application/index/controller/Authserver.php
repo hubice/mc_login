@@ -7,8 +7,9 @@
  */
 namespace app\index\controller;
 
+use app\common\model\UserServer;
+use app\common\model\UUIDServer;
 use think\Controller;
-use think\Log;
 
 Class Authserver extends Controller {
 
@@ -20,6 +21,33 @@ Class Authserver extends Controller {
 
         $data = input('param.');
         iceLog($data);
+        if (empty($data['username']) || empty($data['password'])
+            || empty($data['agent']))
+        {
+            return iceErrorJson();
+        }
+        $data['clientToken'] = $data['clientToken'] ? $data['clientToken'] : UUIDServer::generate()->clearDashes();
+        $accessToken = UUIDServer::generate()->clearDashes();
+        iceLog($data);
+        iceLog($accessToken);
+
+        $userInfo = UserServer::checkUser($data['username'],$data['password']);
+        if ($userInfo == -2) {
+            return iceErrorJson(UserServer::$err);
+        }
+        iceLog($userInfo);
+
+        $profiles = UserServer::getAvailableProfiles($userInfo['id']);
+        if (false == $profiles) {
+            $profiles = array(
+
+            );
+        }
+
+        iceLog($profiles);
+
+
+
 
         return iceErrorJson();
     }
