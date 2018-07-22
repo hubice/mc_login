@@ -60,7 +60,7 @@ Class UserServer {
             self::$err = "不存在";
             return false;
         }
-        $userPro['properties'] = json_decode(json_decode($userPro['properties'],true));
+        $userPro['properties'] = json_decode($userPro['properties'],true);
         return $userPro;
     }
 
