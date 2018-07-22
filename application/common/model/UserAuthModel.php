@@ -26,4 +26,10 @@ class UserAuthModel extends Model {
     public static function upToken($id,$data) {
         return self::where('id', $id)->update($data);
     }
+
+    public static function getbyTokent($token) {
+        return self::get(function ($query) use ($token) {
+            $query->where('access_token',$token);
+        });
+    }
 }

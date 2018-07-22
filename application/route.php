@@ -13,8 +13,15 @@ return [
     "[authserver]" => [
         "authenticate" => ["Authserver/authenticate"],
         "refresh" => ["Authserver/refresh"],
-        "validate" => ["Authserver/validate"],
+        "validate" => ["Authserver/validates"],
         "invalidate" => ["Authserver/invalidate"],
         "signout" => ["Authserver/signout"],
     ],
+    "[sessionserver]" => [
+        "session/minecraft/join" => ["Session/join"],
+        "session/minecraft/hasJoined" => ["Session/hasJoined"],
+        "session/minecraft/profile" => ["Session/profile"],
+
+    ],
+    "/api/profiles/minecraft" => ["Session/profiles"]
 ];

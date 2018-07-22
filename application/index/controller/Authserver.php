@@ -88,5 +88,46 @@ Class Authserver extends Controller {
         return json($res);
     }
 
+    public function refresh(){
+        $data = input('param.');
+        if (empty($data['accessToken'])) {
+            return iceErrorJson();
+        }
+        $accessToken = UUIDServer::generate()->clearDashes();
 
+        $userInfo = UserServer::checkToken($data['accessToken']);
+        if (false === $userInfo) {
+            return iceErrorJson(UserServer::$err);
+        }
+        $data['clientToken'] = $data['clientToken'] ? $data['clientToken'] : $userInfo['access_token'];
+        UserServer::upAccessToken($userInfo['id'],array(
+            'access_token' => $accessToken,
+            'client_token' => $data['clientToken']
+        ));
+        $res = [];
+        $res['accessToken'] = $accessToken;
+        $res['clientToken'] = $data['clientToken'];
+        $data['requestUser'] && ($res['user'] = UserServer::serializeUser($userInfo));
+        return json($res);
+    }
+
+    public function validates() {
+        $data = input('param.');
+        if (empty($data['accessToken']) || empty($data['clientToken'])) {
+            return iceErrorJson();
+        }
+        $userInfo = UserServer::checkToken($data['accessToken']);
+        if (false === $userInfo) {
+            return iceErrorJson(UserServer::$err);
+        }
+        return json('No Content',204);
+    }
+
+    public function invalidate() {
+        return json('No Content',204);
+    }
+
+    public function signout(){
+        return json('No Content',204);
+    }
 }

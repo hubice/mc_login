@@ -53,7 +53,6 @@ Class UserServer {
         return $res;
     }
 
-
     public static function getAvailableProfiles($userId)
     {
         $userPro = UserModel::getId($userId);
@@ -109,5 +108,19 @@ Class UserServer {
             'name' => $userPro['name'],
             'properties' => $userPro['properties']
         );
+    }
+
+    // token验证
+    public static function checkToken($token) {
+        $userInfo = UserAuthModel::getbyTokent($token);
+        if (empty($userInfo)) {
+            self::$err = "数据为空";
+            return false;
+        }
+        if ($userInfo['access_token_time'] < time()) {
+            self::$err = "过期了";
+            return false;
+        }
+        return $userInfo;
     }
 }
