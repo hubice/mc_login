@@ -49,6 +49,7 @@ Class UserServer {
             self::$err = "添加失败";
             return false;
         }
+        $res['properties'] = json_decode($res['properties'],true);
         return $res;
     }
 
@@ -73,6 +74,7 @@ Class UserServer {
             self::$err = "添加失败";
             return false;
         }
+        $res['properties'] = json_decode($res['properties'],true);
         return $res;
     }
 
