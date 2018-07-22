@@ -17,9 +17,9 @@ Class Authserver extends Controller {
      */
     public function authenticate() {
         iceLog("---用户登陆认证接口---");
-        
+
         $data = input('param.');
-        Log::write($data,'error');
+        iceLog($data);
 
         return iceErrorJson();
     }
