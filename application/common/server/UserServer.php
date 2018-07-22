@@ -90,7 +90,6 @@ Class UserServer {
                 'value' => base64_encode(json_encode($textures))
             ]
         ]);
-        var_dump($data);
         $res = UserModel::addOne($data);
         if (empty($res)) {
             self::$err = "添加失败";
