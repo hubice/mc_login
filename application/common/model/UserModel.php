@@ -18,4 +18,8 @@ class UserModel extends Model {
             $query->where('uid', $id);
         });
     }
+
+    public static function addOne($data) {
+        return self::create($data);
+    }
 }

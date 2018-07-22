@@ -14,6 +14,7 @@ Class HttpServer extends Handle
 {
     public function render(Exception $e)
     {
-        return iceErrorJson($e->getMessage());
+        parent::render($e);
+//        return iceErrorJson($e->getMessage());
     }
 }

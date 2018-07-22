@@ -22,4 +22,8 @@ class UserAuthModel extends Model {
     public static function addOne($data) {
         return self::create($data);
     }
+
+    public static function upToken($id,$data) {
+        return self::where('id', $id)->update($data);
+    }
 }
