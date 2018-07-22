@@ -4,7 +4,7 @@
  * @see https://github.com/webpatser/laravel-uuid/blob/master/src/Webpatser/Uuid/Uuid.php
  */
 
-namespace app\common\model;
+namespace app\common\server;
 
 use Exception;
 

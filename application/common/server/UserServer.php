@@ -5,7 +5,7 @@
  * Date: 2018/7/22
  * Time: 16:53
  */
-namespace app\common\model;
+namespace app\common\server;
 
 Class UserServer {
 

@@ -7,8 +7,8 @@
  */
 namespace app\index\controller;
 
-use app\common\model\UserServer;
-use app\common\model\UUIDServer;
+use app\common\server\UserServer;
+use app\common\server\UUIDServer;
 use think\Controller;
 
 Class Authserver extends Controller {
@@ -20,14 +20,16 @@ Class Authserver extends Controller {
         iceLog("---用户登陆认证接口---");
 
         $data = input('param.');
-        iceLog($data);
-        if (empty($data['username']) || empty($data['password'])
-            || empty($data['agent']))
-        {
-            return iceErrorJson();
-        }
+//        iceLog($data);
+//        if (empty($data['username']) || empty($data['password'])
+//            || empty($data['agent']))
+//        {
+//            return iceErrorJson();
+//        }
+        $data['clientToken'] = '';
         $data['clientToken'] = $data['clientToken'] ? $data['clientToken'] : UUIDServer::generate()->clearDashes();
         $accessToken = UUIDServer::generate()->clearDashes();
+
         iceLog($data);
         iceLog($accessToken);
 
