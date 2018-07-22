@@ -64,21 +64,23 @@ Class Authserver extends Controller {
         $profiles = UserServer::getAvailableProfiles($userInfo['id']);
         if (false == $profiles) {
             // 创建默认角色
-//            $map = [];
-//            $map['uid'] = $userInfo['id'];
-//            $map['uuid'] = (string)UUIDServer::generate(5, $data['username'],UUIDServer::NS_DNS);
-//            $map['name'] = explode('@',$data['username'])[0];
-//            $profiles = UserServer::cratePrifiles($map);
-//            if (false === $profiles) {
-//                return iceErrorJson(UserServer::$err);
-//            }
+            $map = [];
+            $map['uid'] = $userInfo['id'];
+            $map['uuid'] = (string)UUIDServer::generate(5, $data['username'],UUIDServer::NS_DNS);
+            $map['name'] = explode('@',$data['username'])[0];
+            $profiles = UserServer::cratePrifiles($map);
+            if (false === $profiles) {
+                return iceErrorJson(UserServer::$err);
+            }
         }
 
         $res = [];
-        $res['accessToken'] = $userInfo['access_token'];
-        $res['clientToken'] = $userInfo['client_token'];
-//        $res['availableProfiles'] = [];
-//        $res['selectedProfile'] = [];
+        $res['accessToken'] = $accessToken;
+        $res['clientToken'] = $data['clientToken'];
+        $res['availableProfiles'] = [
+            UserServer::serializePro($profiles)
+        ];
+        $res['selectedProfile'] = UserServer::serializePro($profiles);
         $data['requestUser'] && ($res['user'] = UserServer::serializeUser($userInfo));
 
         iceLog($res);
