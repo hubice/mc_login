@@ -10,3 +10,9 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function errorJson ($msg = "服务器错误") {
+    return json(array(
+        'error' => "exception error",
+        'errorMessage' => $msg,
+    ),416);
+}
