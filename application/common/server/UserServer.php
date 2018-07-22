@@ -7,6 +7,9 @@
  */
 namespace app\common\server;
 
+use app\common\model\UserAuthModel;
+use app\common\model\UserModel;
+
 Class UserServer {
 
     public static $err = "";
