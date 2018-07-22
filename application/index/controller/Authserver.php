@@ -21,14 +21,6 @@ Class Authserver extends Controller {
 
         $data = input('param.');
 
-        $data['password'] = '123456';
-        $data['clientToken'] = 'd5a4513263c34768ba6a90848af82038';
-        $data['requestUser'] = true;
-        $data['username'] = 'demo@ice.com';
-        $data['agent'] = array(
-            'v' => 2
-        );
-
         iceLog($data);
         if (empty($data['username']) || empty($data['password'])
             || empty($data['agent']))
@@ -41,7 +33,7 @@ Class Authserver extends Controller {
 
         iceLog($data);
         iceLog($accessToken);
-        $userInfo = UserServer::checkUser($data['username'],$data['password']);
+        $userInfo = UserServer::checkUser(trim($data['username']),trim($data['password']));
         iceLog($userInfo);
 
         if (is_numeric($userInfo) && $userInfo == -2) {
