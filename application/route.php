@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 return [
-    "[api/yggdrasil/authserver]" => [
+    "[authserver]" => [
         "authenticate" => ["Authserver/authenticate"],
         "refresh" => ["Authserver/refresh"],
         "validate" => ["Authserver/validate"],
