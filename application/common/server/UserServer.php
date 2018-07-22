@@ -38,7 +38,12 @@ Class UserServer {
         $data['create_time'] = $data['update_time'] = time();
         $data['access_token_time'] = time() + 10 * 3600 * 24;
         $data['status'] = 1;
-        $data['properties'] = json_encode(array('preferredLanguage' => 'zh_CN'));
+        $data['properties'] = json_encode([
+                [
+                    "name" => 'preferredLanguage',
+                    "value" => 'zh_CN'
+                ]
+            ]);
         $res = UserAuthModel::addOne($data);
         if (empty($res)) {
             self::$err = "添加失败";
@@ -55,7 +60,7 @@ Class UserServer {
             self::$err = "不存在";
             return false;
         }
-        $userPro['properties'] = json_decode($userPro['properties'],true);
+        $userPro['properties'] = json_decode(json_decode($userPro['properties'],true));
         return $userPro;
     }
 
