@@ -27,13 +27,13 @@ class Index
      * 登陆获取token
      */
     public function authenticate() {
-        
-        return self::errJson();
 
         $username = input('username','','trim');
         $password = input('password','','trim');
         $clientToken = input('clientToken','','trim');
         $requestUser = input('requestUser',false,'boolean');
+
+        return self::errJson(json_encode($_POST));
 
         if (empty($username) || empty($password)) {
             return self::errJson();
