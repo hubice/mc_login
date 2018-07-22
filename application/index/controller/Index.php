@@ -85,7 +85,7 @@ class Index
 
     private static function errJson($msg = "参数错误") {
         return json(array(
-            'error' => "Requested range not satisfiable",
+            'error' => "exception error",
             'errorMessage' => $msg,
             'cause' => ''
         ),416);
