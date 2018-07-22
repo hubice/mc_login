@@ -20,23 +20,24 @@ Class Authserver extends Controller {
         iceLog("---用户登陆认证接口---");
 
         $data = input('param.');
-//        iceLog($data);
-//        if (empty($data['username']) || empty($data['password'])
-//            || empty($data['agent']))
-//        {
-//            return iceErrorJson();
-//        }
-        $data['clientToken'] = '';
+
+        iceLog($data);
+        if (empty($data['username']) || empty($data['password'])
+            || empty($data['agent']))
+        {
+            return iceErrorJson();
+        }
+
         $data['clientToken'] = $data['clientToken'] ? $data['clientToken'] : UUIDServer::generate()->clearDashes();
         $accessToken = UUIDServer::generate()->clearDashes();
 
         iceLog($data);
         iceLog($accessToken);
-
         $userInfo = UserServer::checkUser($data['username'],$data['password']);
         if ($userInfo == -2) {
             return iceErrorJson(UserServer::$err);
         }
+
         iceLog($userInfo);
 
         $profiles = UserServer::getAvailableProfiles($userInfo['id']);
@@ -47,9 +48,6 @@ Class Authserver extends Controller {
         }
 
         iceLog($profiles);
-
-
-
 
         return iceErrorJson();
     }
