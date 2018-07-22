@@ -14,6 +14,8 @@ class UserModel extends Model {
     protected $table = 'mc_user';
 
     public static function getId($id) {
-        return self::where("uid",$id)->order("sort desc")->get();
+        return self::get(function($query) use ($id){
+            $query->where('uid', $id);
+        });
     }
 }

@@ -20,17 +20,12 @@ Class UserServer {
             self::$err = "用户不存在";
             return -1;
         }
-        if ($userInfo['password'] == $password) {
+        if ($userInfo['password'] != $password) {
             self::$err = "密码不正确";
             return -2;
         }
         return $userInfo;
     }
-
-    public static function crateuser($username,$password) {
-
-    }
-
 
     public static function getAvailableProfiles($userId)
     {

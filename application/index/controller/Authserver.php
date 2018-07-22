@@ -21,6 +21,14 @@ Class Authserver extends Controller {
 
         $data = input('param.');
 
+        $data['password'] = '123456';
+        $data['clientToken'] = 'd5a4513263c34768ba6a90848af82038';
+        $data['requestUser'] = true;
+        $data['username'] = 'demo@ice.com';
+        $data['agent'] = array(
+            'v' => 2
+        );
+
         iceLog($data);
         if (empty($data['username']) || empty($data['password'])
             || empty($data['agent']))
@@ -34,19 +42,18 @@ Class Authserver extends Controller {
         iceLog($data);
         iceLog($accessToken);
         $userInfo = UserServer::checkUser($data['username'],$data['password']);
-        if ($userInfo == -2) {
+        iceLog($userInfo);
+
+        if (is_numeric($userInfo) && $userInfo == -2) {
             return iceErrorJson(UserServer::$err);
         }
 
-        iceLog($userInfo);
-
-        $profiles = UserServer::getAvailableProfiles($userInfo['id']);
+        $profiles = UserServer::getAvailableProfiles(1);
         if (false == $profiles) {
             $profiles = array(
 
             );
         }
-
         iceLog($profiles);
 
         return iceErrorJson();
