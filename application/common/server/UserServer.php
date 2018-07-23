@@ -68,10 +68,10 @@ Class UserServer {
         $textures_skin_metadata = new \stdClass();
         $textures_skin_metadata->model = "default";
         $textures_skin = new \stdClass();
-        $textures_skin->url = "https://example.yggdrasil.yushi.moe/textures/d803ad3e62a167583e92fd5ca4cd4e91e8292cae2e2b06bb86bb294a7813808e";
+        $textures_skin->url = "https://texture.namemc.com/e4/90/e490673ccdf61b95.png";
         $textures_skin->metadata = $textures_skin_metadata;
         $textures_cape = new \stdClass();
-        $textures_cape->url = "https://example.yggdrasil.yushi.moe/textures/59d9f431dd9e5c95e38a2718702251ed8bd4e29e4186b5d2deee3167a23b542a";
+        $textures_cape->url = "https://texture.namemc.com/72/ee/72ee2cfcefbfc081.png";
         $textures = new \stdClass();
         $textures->SKIN = $textures_skin;
         $textures->CAPE = $textures_cape;
