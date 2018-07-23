@@ -84,7 +84,9 @@ Class Authserver extends Controller {
      * token刷新
      */
     public function refresh(){
+        iceLog("---token刷新---");
         $data = input('param.');
+        iceLog($data);
         if (empty($data['accessToken'])) {
             return iceErrorJson();
         }
@@ -110,6 +112,7 @@ Class Authserver extends Controller {
         $res['clientToken'] = $data['clientToken'];
         $res['selectedProfile'] = UserServer::serializePro($profiles);
         $data['requestUser'] && ($res['user'] = UserServer::serializeUser($userInfo));
+        iceLog($res);
         return json($res);
     }
 
@@ -118,7 +121,10 @@ Class Authserver extends Controller {
      * 验证token是否正确
      */
     public function validates() {
+        iceLog("---验证token是否正确---");
         $data = input('param.');
+        iceLog($data);
+
         if (empty($data['accessToken']) || empty($data['clientToken'])) {
             return iceErrorJson();
         }
@@ -135,6 +141,8 @@ Class Authserver extends Controller {
      */
     public function invalidate() {
         $data = input('param.');
+        iceLog("---清空单个token---");
+        iceLog($data);
         if (empty($data['accessToken'])) {
             return iceErrorJson();
         }
@@ -156,6 +164,8 @@ Class Authserver extends Controller {
      * 登出 清空所有token
      */
     public function signout(){
+        iceLog("---清空所有token---");
+
         return $this->invalidate();
     }
 }

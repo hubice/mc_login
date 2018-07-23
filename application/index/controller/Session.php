@@ -13,8 +13,14 @@ use think\Controller;
 
 class Session extends Controller
 {
+    /**
+     * @return \think\response\Json
+     * 客户端加入
+     */
     public function join() {
         $data = input('param.');
+        iceLog("---客户端加入---");
+        iceLog($data);
         if (empty($data['accessToken']) || empty($data['selectedProfile']) || empty($data['serverId'])) {
             return iceErrorJson();
         }
@@ -33,8 +39,14 @@ class Session extends Controller
         return json("No Content",204);
     }
 
+    /**
+     * @return \think\response\Json
+     * 服务的验证
+     */
     public function hasJoined() {
         $data = input('param.');
+        iceLog("---服务的验证---");
+        iceLog($data);
         if (empty($data['username']) || empty($data['serverId'])) {
             return iceErrorJson();
         }
@@ -46,8 +58,14 @@ class Session extends Controller
         }
     }
 
+    /**
+     * @return \think\response\Json
+     * 查找角色
+     */
     public function profile() {
         $data = input('param.');
+        iceLog("---查找角色---");
+        iceLog($data);
         if (empty($data['uuid'])) {
             return iceErrorJson();
         }
@@ -56,11 +74,18 @@ class Session extends Controller
             return iceErrorJson(UserServer::$err);
         }
         $res = UserServer::serializePro($userPro);
+        iceLog($res);
         return json($res);
     }
 
+    /**
+     * @return \think\response\Json
+     * 批量找角色
+     */
     public function profiles() {
         $data = input('param.');
+        iceLog("---查找角色---");
+        iceLog($data);
         if (count($data) < 2) {
             return iceErrorJson();
         }
@@ -71,6 +96,7 @@ class Session extends Controller
             }
         }
         $res = UserServer::getIdByNames($all);
+        iceLog($res);
         return json($res);
     }
 }

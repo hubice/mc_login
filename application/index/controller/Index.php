@@ -8,6 +8,7 @@
 
 namespace app\index\controller;
 
+use think\Cache;
 use think\Controller;
 
 Class Index extends Controller {
@@ -28,5 +29,5 @@ Class Index extends Controller {
             )
         ));
     }
-
+    
 }
