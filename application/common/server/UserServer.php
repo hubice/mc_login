@@ -148,10 +148,7 @@ bPLwSL4ONeHE5GVqi1BGBcM4c8ajXWq+FolAeJCZKIAjCiv/N1G3eja+1aUw
             $prop['signature'] = base64_encode($signature);
         }
         $data['properties'] = json_encode($data['properties']);
-        var_dump($data['properties']);
-        die;
-
-
+        
         $res = UserModel::addOne($data);
         if (empty($res)) {
             self::$err = "添加失败";
