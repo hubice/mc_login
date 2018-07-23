@@ -20,14 +20,6 @@ Class Authserver extends Controller {
         iceLog("---用户登陆认证接口---");
         $data = input('param.');
         iceLog($data);
-//        $data['agent'] =   array (
-//            'name' => 'Minecraft',
-//            'version' => 1,
-//        );
-//        $data['password'] = '123456';
-//        $data['clientToken'] = '8310664228ff824745a61f68ce36d13b';
-//        $data['requestUser'] = true;
-//        $data['username'] = 'demo123@ice.com';
 
         if (empty($data['username']) || empty($data['password'])
             || empty($data['agent']))
@@ -66,10 +58,9 @@ Class Authserver extends Controller {
             // 创建默认角色
             $map = [];
             $map['uid'] = $userInfo['id'];
-            $_uuid = UUIDServer::generate(5, $data['username'],UUIDServer::NS_DNS);
-            $map['uuid'] = (string)$_uuid;
+            $map['uuid'] = UUIDServer::generate()->clearDashes();;
             $map['name'] = explode('@',$data['username'])[0];
-            $profiles = UserServer::cratePrifiles($map,$_uuid->clearDashes());
+            $profiles = UserServer::cratePrifiles($map);
             if (false === $profiles) {
                 return iceErrorJson(UserServer::$err);
             }
@@ -88,6 +79,10 @@ Class Authserver extends Controller {
         return json($res);
     }
 
+    /**
+     * @return \think\response\Json
+     * token刷新
+     */
     public function refresh(){
         $data = input('param.');
         if (empty($data['accessToken'])) {
@@ -104,13 +99,24 @@ Class Authserver extends Controller {
             'access_token' => $accessToken,
             'client_token' => $data['clientToken']
         ));
+
+        $profiles = UserServer::getAvailableProfiles($userInfo['id']);
+        if (empty($profiles)) {
+            return iceErrorJson("角色数据异常");
+        }
+
         $res = [];
         $res['accessToken'] = $accessToken;
         $res['clientToken'] = $data['clientToken'];
+        $res['selectedProfile'] = UserServer::serializePro($profiles);
         $data['requestUser'] && ($res['user'] = UserServer::serializeUser($userInfo));
         return json($res);
     }
 
+    /**
+     * @return \think\response\Json
+     * 验证token是否正确
+     */
     public function validates() {
         $data = input('param.');
         if (empty($data['accessToken']) || empty($data['clientToken'])) {
@@ -123,11 +129,33 @@ Class Authserver extends Controller {
         return json('No Content',204);
     }
 
+    /**
+     * @return \think\response\Json
+     * 清空单个token
+     */
     public function invalidate() {
+        $data = input('param.');
+        if (empty($data['accessToken'])) {
+            return iceErrorJson();
+        }
+        $userInfo = UserServer::checkToken($data['accessToken']);
+        if (false === $userInfo) {
+            return iceErrorJson(UserServer::$err);
+        }
+        $data['clientToken'] = $data['clientToken'] ? $data['clientToken'] : $userInfo['clientToken'];
+
+        UserServer::upAccessToken($userInfo['id'],array(
+            'access_token' => "",
+            'client_token' => $data['clientToken']
+        ));
         return json('No Content',204);
     }
 
+    /**
+     * @return \think\response\Json
+     * 登出 清空所有token
+     */
     public function signout(){
-        return json('No Content',204);
+        return $this->invalidate();
     }
 }

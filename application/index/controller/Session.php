@@ -23,7 +23,7 @@ class Session extends Controller
             return iceErrorJson(UserServer::$err);
         }
         $userPro = UserServer::getAvailableProfiles($userInfo['id']);
-        if ($userPro['uuid'] == $data['selectedProfile']) {
+        if ($userPro['uuid'] != $data['selectedProfile']) {
             return iceErrorJson("角色数据异常");
         }
         Cache::set($data['serverId'],array(
@@ -40,10 +40,7 @@ class Session extends Controller
         }
         $sess = Cache::get($data['serverId']);
         if ($sess && $sess['username'] == $data['username']) {
-
-
-
-
+            return json('ok');
         } else {
             return iceErrorJson("登陆失效");
         }
@@ -54,14 +51,26 @@ class Session extends Controller
         if (empty($data['uuid'])) {
             return iceErrorJson();
         }
-
-
+        $userPro = UserServer::getProfilesByUuid($data['uuid']);
+        if (false === $userPro) {
+            return iceErrorJson(UserServer::$err);
+        }
+        $res = UserServer::serializePro($userPro);
+        return json($res);
     }
 
     public function profiles() {
         $data = input('param.');
-        
-
-
+        if (count($data) < 2) {
+            return iceErrorJson();
+        }
+        $all = [];
+        foreach ($data as $v) {
+            if (!empty($v)) {
+                $all[] = $v;
+            }
+        }
+        $res = UserServer::getIdByNames($all);
+        return json($res);
     }
 }

@@ -18,23 +18,21 @@ Class Index extends Controller {
      */
     public function index() {
 
-        $str = "eyJ0aW1lc3RhbXAiOjE1MzIyNjg4NjYsInByb2ZpbGVJZCI6IjY5NzU3OGVhMWIxYjVhMTZiMGEyM2ZkNDVkODU3MWMwIiwicHJvZmlsZU5hbWUiOiJkZW1vMTIzIiwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwczpcL1wvbWMucGFuMjMzLmNvbVwvdGV4dHVyZXNcL3NraW5cL2U0OTA2NzNjY2RmNjFiOTUucG5nIiwibWV0YWRhdGEiOnsibW9kZWwiOiJkZWZhdWx0In19LCJDQVBFIjp7InVybCI6Imh0dHBzOlwvXC9tYy5wYW4yMzMuY29tXC90ZXh0dXJlc1wvY3d3d2FwZVwvNzJlZTJjZmNlZmJmYzA4MS5wbmcifX19";
-
-        var_dump(json_decode(base64_decode($str),true));
+        $str = 'eyJ0aW1lc3RhbXAiOjE1MzIzMjM1MTU3MjEsInByb2ZpbGVJZCI6ImYyNTNiNWY5MDgxZTQ3N2ZhNWRhY2I4MjhlNTZkMTYwIiwicHJvZmlsZU5hbWUiOiJjaGFyYWN0ZXIxIiwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUueWdnZHJhc2lsLnl1c2hpLm1vZS90ZXh0dXJlcy9kODAzYWQzZTYyYTE2NzU4M2U5MmZkNWNhNGNkNGU5MWU4MjkyY2FlMmUyYjA2YmI4NmJiMjk0YTc4MTM4MDhlIiwibWV0YWRhdGEiOnsibW9kZWwiOiJkZWZhdWx0In19LCJDQVBFIjp7InVybCI6Imh0dHBzOi8vZXhhbXBsZS55Z2dkcmFzaWwueXVzaGkubW9lL3RleHR1cmVzLzU5ZDlmNDMxZGQ5ZTVjOTVlMzhhMjcxODcwMjI1MWVkOGJkNGUyOWU0MTg2YjVkMmRlZWUzMTY3YTIzYjU0MmEifX19';
+        var_dump(json_decode(base64_decode($str)));
         die;
-//        die;
-//
-//
-//        return json(array(
-//            "meta" => array(
-//                "serverName" => "IceCraft",
-//                "implementationName" => "IceCraft Admin",
-//                "implementationVersion" => "1.0.0"
-//            ),
-//            "skinDomains" => array(
-//                ".pan233.com"
-//            )
-//        ));
+
+
+        return json(array(
+            "meta" => array(
+                "serverName" => "IceCraft",
+                "implementationName" => "IceCraft Admin",
+                "implementationVersion" => "1.0.0"
+            ),
+            "skinDomains" => array(
+                ".pan233.com"
+            )
+        ));
     }
 
 }

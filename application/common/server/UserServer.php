@@ -39,10 +39,10 @@ Class UserServer {
         $data['access_token_time'] = time() + 10 * 3600 * 24;
         $data['status'] = 1;
         $data['properties'] = json_encode([
-                [
-                    "name" => 'preferredLanguage',
-                    "value" => 'zh_CN'
-                ]
+//                [
+//                    "name" => 'preferredLanguage',
+//                    "value" => 'zh_CN'
+//                ]
             ]);
         $res = UserAuthModel::addOne($data);
         if (empty($res)) {
@@ -64,20 +64,18 @@ Class UserServer {
         return $userPro;
     }
 
-    public static function cratePrifiles($data,$uuid) {
-        $textures = array(
-            'timestamp' => time()*1000,
-            'profileId' => $uuid,
-            'profileName' => $data['name'],
-            'textures' => [
-                "SKIN" => [
-                    "url" => "https://mc.pan233.com/textures/skin/e490673ccdf61b95.png"
-                ],
-                "CAPE" => [
-                    "url" => "https://mc.pan233.com/textures/cape/72ee2cfcefbfc081.png",
-                ]
-            ]
-        );
+    public static function cratePrifiles($data) {
+        $textures_skin_metadata = new \stdClass();
+        $textures_skin_metadata->model = "default";
+        $textures_skin = new \stdClass();
+        $textures_skin->url = "https://example.yggdrasil.yushi.moe/textures/d803ad3e62a167583e92fd5ca4cd4e91e8292cae2e2b06bb86bb294a7813808e";
+        $textures_skin->metadata = $textures_skin_metadata;
+        $textures_cape = new \stdClass();
+        $textures_cape->url = "https://example.yggdrasil.yushi.moe/textures/59d9f431dd9e5c95e38a2718702251ed8bd4e29e4186b5d2deee3167a23b542a";
+        $textures = new \stdClass();
+        $textures->SKIN = $textures_skin;
+        $textures->CAPE = $textures_cape;
+
         $data['create_time'] = $data['update_time'] = time();
         $data['status'] = 1;
         $data['properties'] = json_encode([
@@ -122,5 +120,27 @@ Class UserServer {
             return false;
         }
         return $userInfo;
+    }
+
+    public static function getProfilesByUuid($uuid){
+        $userPro = UserModel::getByUuid($uuid);
+        if (empty($userPro)) {
+            self::$err = "不存在";
+            return false;
+        }
+        $userPro['properties'] = json_decode($userPro['properties'],true);
+        return $userPro;
+    }
+
+    public static function getIdByNames($data) {
+        $userInfo = UserModel::getIdByNames(implode(',',$data));
+        $res =[];
+        foreach ($userInfo as $v) {
+            $res[] = array(
+                'id' => $v['uuid'],
+                'name' => $v['name'],
+            );
+        }
+        return $res;
     }
 }

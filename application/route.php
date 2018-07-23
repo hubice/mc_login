@@ -20,8 +20,8 @@ return [
     "[sessionserver]" => [
         "session/minecraft/join" => ["Session/join"],
         "session/minecraft/hasJoined" => ["Session/hasJoined"],
-        "session/minecraft/profile" => ["Session/profile"],
+        "session/minecraft/profile/:uuid" => ["Session/profile"],
 
     ],
-    "/api/profiles/minecraft" => ["Session/profiles"]
+    "api/profiles/minecraft" => "Session/profiles"
 ];
