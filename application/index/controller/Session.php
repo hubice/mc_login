@@ -51,11 +51,13 @@ class Session extends Controller
             return iceErrorJson();
         }
         $sess = Cache::get($data['serverId']);
-        if ($sess && $sess['username'] == $data['username']) {
-            return json('ok');
-        } else {
+        if (empty($sess) || $sess['username'] != $data['username']) {
             return iceErrorJson("登陆失效");
         }
+        $userInfo = UserServer::checkToken($sess['token']);
+        $res = UserServer::serializeUser($userInfo);
+        iceLog($res);
+        return json($res);
     }
 
     /**

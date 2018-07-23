@@ -29,5 +29,5 @@ Class Index extends Controller {
             )
         ));
     }
-    
+
 }
