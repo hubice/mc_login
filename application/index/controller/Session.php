@@ -34,7 +34,8 @@ class Session extends Controller
         }
         Cache::set($data['serverId'],array(
             'username' => $userPro['name'],
-            'token' => $data['accessToken']
+            'token' => $data['accessToken'],
+            'userId' => $userInfo['id']
         ),60);
         iceLog("No Content");
         return json("No Content",204);
@@ -52,11 +53,11 @@ class Session extends Controller
             return iceErrorJson();
         }
         $sess = Cache::get($data['serverId']);
-        if (empty($sess) || $sess['username'] != $data['username']) {
+        if (empty($sess) || $sess['username'] != $data['username'] || empty($sess['userId'])) {
             return iceErrorJson("登陆失效");
         }
-        $userInfo = UserServer::checkToken($sess['token']);
-        $res = UserServer::serializeUser($userInfo);
+        $userPro = UserServer::getAvailableProfiles($sess['userId']);
+        $res = UserServer::serializePro($userPro);
         iceLog($res);
         return json($res);
     }
