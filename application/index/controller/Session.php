@@ -53,6 +53,7 @@ class Session extends Controller
             return iceErrorJson();
         }
         $sess = Cache::get($data['serverId']);
+        Cache::set($data['serverId'],'');
         if (empty($sess) || $sess['username'] != $data['username'] || empty($sess['userId'])) {
             return iceErrorJson("登陆失效");
         }
