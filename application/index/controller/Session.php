@@ -36,6 +36,7 @@ class Session extends Controller
             'username' => $userPro['name'],
             'token' => $data['accessToken']
         ),60);
+        iceLog("No Content");
         return json("No Content",204);
     }
 

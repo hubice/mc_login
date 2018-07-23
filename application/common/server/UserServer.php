@@ -68,10 +68,10 @@ Class UserServer {
         $textures_skin_metadata = new \stdClass();
         $textures_skin_metadata->model = "default";
         $textures_skin = new \stdClass();
-        $textures_skin->url = "https://texture.namemc.com/e4/90/e490673ccdf61b95.png";
+        $textures_skin->url = "https://mc.pan233.com/textures/skin/e490673ccdf61b95.png";
         $textures_skin->metadata = $textures_skin_metadata;
         $textures_cape = new \stdClass();
-        $textures_cape->url = "https://texture.namemc.com/72/ee/72ee2cfcefbfc081.png";
+        $textures_cape->url = "https://mc.pan233.com/textures/cape/72ee2cfcefbfc081.png";
         $textures = new \stdClass();
         $textures->SKIN = $textures_skin;
         $textures->CAPE = $textures_cape;

@@ -132,6 +132,7 @@ Class Authserver extends Controller {
         if (false === $userInfo) {
             return iceErrorJson(UserServer::$err);
         }
+        iceLog("No Content");
         return json('No Content',204);
     }
 
@@ -156,6 +157,7 @@ Class Authserver extends Controller {
             'access_token' => "",
             'client_token' => $data['clientToken']
         ));
+        iceLog("No Content");
         return json('No Content',204);
     }
 
@@ -165,7 +167,6 @@ Class Authserver extends Controller {
      */
     public function signout(){
         iceLog("---清空所有token---");
-
         return $this->invalidate();
     }
 }
