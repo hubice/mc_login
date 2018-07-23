@@ -75,13 +75,18 @@ Class UserServer {
         $textures = new \stdClass();
         $textures->SKIN = $textures_skin;
         $textures->CAPE = $textures_cape;
+        $text = new \stdClass();
+        $text->timestamp = time()*1000;
+        $text->profileId = $data['uuid'];
+        $text->profileName = $data['name'];
+        $text->textures = $textures;
 
         $data['create_time'] = $data['update_time'] = time();
         $data['status'] = 1;
         $data['properties'] = json_encode([
             [
                 'name' => 'textures',
-                'value' => base64_encode(json_encode($textures))
+                'value' => base64_encode(json_encode($text))
             ]
         ]);
         $res = UserModel::addOne($data);
