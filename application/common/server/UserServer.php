@@ -84,12 +84,12 @@ Class UserServer {
 
         $data['create_time'] = $data['update_time'] = time();
         $data['status'] = 1;
-        $data['properties'] = json_encode([
+        $data['properties'] = [
             [
                 'name' => 'textures',
                 'value' => base64_encode(json_encode($text,JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT))
             ]
-        ]);
+        ];
 
         $key = openssl_pkey_get_private('-----BEGIN RSA PRIVATE KEY-----
 MIIJKQIBAAKCAgEAlRm8lWcyVUHfztVVXPAmBdFT7D2iYvnMgxwKxOQ5ELM5rsKS
@@ -142,10 +142,15 @@ GWGqqvx2kYLos+QjU2c8w36xQk4vOszEmGQy7Wh8iFXGgNfWSAeRA47MxJp4yrAv
 s7HAfdYlu1e2V41rMXFauthuXMamN1H706hQDSyOo801WJ5kjF82vnJE5XedVwCB
 bPLwSL4ONeHE5GVqi1BGBcM4c8ajXWq+FolAeJCZKIAjCiv/N1G3eja+1aUw
 -----END RSA PRIVATE KEY-----');
+
         foreach ($data['properties'] as &$prop) {
             $signature = self::sign($prop['value'], $key);
             $prop['signature'] = base64_encode($signature);
         }
+        $data['properties'] = json_encode($data['properties']);
+        var_dump($data['properties']);
+        die;
+
 
         $res = UserModel::addOne($data);
         if (empty($res)) {
